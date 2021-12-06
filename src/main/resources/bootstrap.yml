@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: remind
+  cloud:
+    nacos:
+      # 服务的发现
+      discovery:
+        server-addr: http://47.103.215.103:8848
+        service: remind
+        namespace: a9581a4f-d767-4624-bec7-617419fa7278
+      # 配置中心
+      config:
+        server-addr: http://47.103.215.103:8848
+        file-extension: yml
+        group: AUTO
+        namespace: a9581a4f-d767-4624-bec7-617419fa7278
+    sentinel:
+      transport:
+        # 客户端来跟sentinel交互的端口
+        port: 8719
+        # sentinel暴露的ip:port
+        dashboard: http://10.20.0.254:8858
+      datasource:
+        ds-flow:
+          nacos:
+            server-addr: http://47.103.215.103:8848
+            data-id: remind-sentinel-flow.json
+            group-id: AUTO
+            namespace: a9581a4f-d767-4624-bec7-617419fa7278
+            data-type: json
+            rule-type: flow
+        ds-degrade:
+          nacos:
+            server-addr: http://47.103.215.103:8848
+            data-id: remind-sentinel-degrade.json
+            group-id: AUTO
+            namespace: a9581a4f-d767-4624-bec7-617419fa7278
+            data-type: json
+            rule-type: degrade
+        ds-param-flow:
+          nacos:
+            server-addr: http://47.103.215.103:8848
+            data-id: remind-sentinel-param-flow.json
+            group-id: AUTO
+            namespace: a9581a4f-d767-4624-bec7-617419fa7278
+            data-type: json
+            rule-type: param-flow
+        ds-system:
+          nacos:
+            server-addr: http://47.103.215.103:8848
+            data-id: remind-sentinel-system.json
+            group-id: AUTO
+            namespace: a9581a4f-d767-4624-bec7-617419fa7278
+            data-type: json
+            rule-type: system
+        ds-authority:
+          nacos:
+            server-addr: http://47.103.215.103:8848
+            data-id: remind-sentinel-authority.json
+            group-id: AUTO
+            namespace: a9581a4f-d767-4624-bec7-617419fa7278
+            data-type: json
+            rule-type: authority
