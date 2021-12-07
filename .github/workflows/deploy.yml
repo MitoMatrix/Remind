@@ -29,6 +29,7 @@ jobs:
       #        with:	# 当前 actions 的一些配置 需要2.8以上git支持
       #          submodules: true # 如果项目有依赖 Git 子项目时可以设为 true，拉取的时候会一并拉取下来
 
+
       # 编译
       - name: build
         run: |
@@ -40,5 +41,6 @@ jobs:
       - name: deploy
         run: |
           echo 'start deploy ......'
+
           docker build -t remind .
           echo 'deploy success'
