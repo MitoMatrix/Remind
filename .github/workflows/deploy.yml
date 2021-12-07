@@ -35,10 +35,10 @@ jobs:
           echo 'start build ......'
           mvn clean install -Dmaven.test.skip=true
           mkdir -p /data/$SERVICE_NAME
-          mv $REMIND_TARGET_DIR/$SERVICE_NAME.jar /data/$SERVICE_NAME/
           echo 'build success'
 
       - name: deploy
         run: |
           echo 'start deploy ......'
+          docker build -t remind .
           echo 'deploy success'
