@@ -40,5 +40,6 @@ jobs:
       - name: deploy
         run: |
           echo 'start deploy ......'
+
           docker build -t remind .
           echo 'deploy success'
