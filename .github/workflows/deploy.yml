@@ -41,7 +41,6 @@ jobs:
       - name: deploy
         run: |
           echo 'start deploy ......'
-          cd $SERVICE_NAME
           echo $(pwd)
           docker build -t remind .
           echo 'deploy success'
