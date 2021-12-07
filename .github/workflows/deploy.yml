@@ -2,7 +2,8 @@
 name: deploy
 
 env:
-  REMIND_TARGET_DIR: '/home/actions-runner/_work/zoombar/zoombar/EurekaServer/target'
+  REMIND_TARGET_DIR: '/data/actions-runner/_work/Remind/Remind/target'
+  SERVICE_NAME: 'remind'
 
 # push触发
 # 绑定master分支
@@ -31,18 +32,13 @@ jobs:
       # 编译
       - name: build
         run: |
-          echo '开始执行zoombar代码编译功能'
+          echo 'start build ......'
           mvn clean install -Dmaven.test.skip=true
-          echo $(pwd)
+          mkdir -p /data/$SERVICE_NAME
+          mv $REMIND_TARGET_DIR/$SERVICE_NAME.jar /data/$SERVICE_NAME/
           echo 'build success'
 
-#      - name: deploy
-#        run: |
-#          echo '构建应用阶段'
-#          pm2 list
-#          pm2 restart eureka
-#          pm2 restart user-center
-#          pm2 restart content
-#          pm2 restart gateway
-#          pm2 restart job
-#          echo 'deploy success'
+      - name: deploy
+        run: |
+          echo 'start deploy ......'
+          echo 'deploy success'
