@@ -13,16 +13,15 @@ import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
-import java.net.URI;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 
 /**
@@ -31,6 +30,7 @@ import java.util.Objects;
  * @author 郑建雄
  * @date 2021/11/22
  */
+@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
 @Service
 @Slf4j
 public class BoostServiceImpl implements BoostService {
@@ -90,13 +90,11 @@ public class BoostServiceImpl implements BoostService {
 
     private String readMarkDow() {
         try {
-            final URI uri = Objects.requireNonNull(BoostServiceImpl.class.getResource("/templates/morningPost.md")).toURI();
-            return Files.readString(Path.of(uri), StandardCharsets.UTF_8);
+            final File file = ResourceUtils.getFile("classpath:templates/morningPost.md");
+            return FileUtils.readFileToString(file, StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             log.error("【boostService】读取文件失败", e);
             throw BaseException.of(ExceptionEnum.INTERNAL_ERROR);
         }
     }
-
-
 }
