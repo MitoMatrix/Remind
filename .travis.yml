@@ -1,0 +1,29 @@
+language: java
+os: linux
+dist: xenial
+jdk:
+  - openjdk11
+
+addons:
+  ssh_known_hosts:
+    - 117.50.173.34
+
+script:
+  - cd /opt/test
+  - echo "script success"
+
+branches:
+  only:
+    - main
+
+notifications:
+  email:
+    - bwensun@foxmail.com
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
+    -in id_rsa.enc -out ~/.ssh/id_rsa -d
+
+after_success:
+  - chmod 600 ~/.ssh/id_rsa   #还是Linux文件权限问题
+  - echo "after success"
