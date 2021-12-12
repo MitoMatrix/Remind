@@ -1,8 +1,7 @@
 package com.auto.remind.com.bwensun.service.impl;
 
 import com.auto.remind.com.bwensun.commons.constant.DingMessageType;
-import com.auto.remind.com.bwensun.commons.exception.BaseException;
-import com.auto.remind.com.bwensun.commons.exception.ExceptionEnum;
+import com.auto.remind.com.bwensun.commons.util.ResourceUtils;
 import com.auto.remind.com.bwensun.domain.dto.ding.DingRequestDTO;
 import com.auto.remind.com.bwensun.domain.dto.xinzhi.WeatherDTO;
 import com.auto.remind.com.bwensun.service.BoostService;
@@ -13,13 +12,9 @@ import com.dingtalk.api.request.OapiRobotSendRequest;
 import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -58,7 +53,8 @@ public class BoostServiceImpl implements BoostService {
         //设置内容
         final OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
         markdown.setTitle("Moring Post");
-        final String text = renderingTemplate(readMarkDow());
+        final String content = ResourceUtils.readAsString("/templates/morningPost.md");
+        final String text = renderingTemplate(content);
         markdown.setText(text);
         request.setMarkdown(markdown);
         request.setAtAll(false);
@@ -88,13 +84,5 @@ public class BoostServiceImpl implements BoostService {
         return template;
     }
 
-    private String readMarkDow() {
-        try {
-            final File file = ResourceUtils.getFile("classpath:templates/morningPost.md");
-            return FileUtils.readFileToString(file, StandardCharsets.UTF_8.name());
-        } catch (Exception e) {
-            log.error("【boostService】读取文件失败", e);
-            throw BaseException.of(ExceptionEnum.INTERNAL_ERROR);
-        }
-    }
+
 }

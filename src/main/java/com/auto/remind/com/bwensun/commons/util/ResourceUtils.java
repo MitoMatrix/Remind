@@ -1,0 +1,38 @@
+package com.auto.remind.com.bwensun.commons.util;
+
+import com.google.common.io.CharStreams;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * 资源访问工具
+ *
+ * @author 郑建雄
+ * @date 2021/12/13
+ */
+@Slf4j
+public class ResourceUtils {
+
+    private ResourceUtils() {
+    }
+
+    public static String readAsString(String path){
+        final ClassPathResource classPathResource = new ClassPathResource(path);
+        final InputStream inputStream;
+        try {
+            inputStream = classPathResource.getInputStream();
+            return IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+        } catch (IOException e) {
+            log.info("【ResourceUtils-readresString】 读取文件异常");
+        }
+        return "";
+    }
+
+}

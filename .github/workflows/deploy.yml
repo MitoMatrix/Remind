@@ -39,6 +39,8 @@ jobs:
       - name: deploy
         run: |
           echo 'start deploy ......'
+#         清除之前的镜像
+
           echo $(pwd)
           docker build -t remind .
           echo 'deploy success'
