@@ -38,6 +38,13 @@ jobs:
 
       - name: deploy
         run: |
-          echo 'start deploy ......'
-          docker build -t remind .
+          echo 'deploy-01 start deploy ......'
+          echo 'deploy-02 stop container ......'
+          docker stop $SERVICE_NAME
+          echo 'deploy-03 delete container ......'
+          docker rm $SERVICE_NAME
+          echo 'deploy-04 build image ......'
+          docker build -t $SERVICE_NAME .
+          echo 'deploy-05 run image ......'
+          docker run -d --name $SERVICE_NAME $SERVICE_NAME
           echo 'deploy success'
