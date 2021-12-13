@@ -43,8 +43,10 @@ jobs:
           docker stop $SERVICE_NAME
           echo 'deploy-03 delete container ......'
           docker rm $SERVICE_NAME
-          echo 'deploy-04 build image ......'
+          echo 'deploy-04 delete image ......'
+          docker image rm $SERVICE_NAME
+          echo 'deploy-05 build image ......'
           docker build -t $SERVICE_NAME .
-          echo 'deploy-05 run image ......'
+          echo 'deploy-06 run image ......'
           docker run -d --name $SERVICE_NAME $SERVICE_NAME
           echo 'deploy success'
