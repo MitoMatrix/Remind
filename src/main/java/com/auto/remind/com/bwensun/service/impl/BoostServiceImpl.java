@@ -52,7 +52,7 @@ public class BoostServiceImpl implements BoostService {
         request.setAtMobiles(Lists.newArrayList("17612587856"));
         //设置内容
         final OapiRobotSendRequest.Markdown markdown = new OapiRobotSendRequest.Markdown();
-        markdown.setTitle("Moring Post");
+        markdown.setTitle("早报");
         final String content = ResourceUtils.readAsString("/templates/morningPost.md");
         final String text = renderingTemplate(content);
         markdown.setText(text);

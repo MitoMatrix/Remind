@@ -1,14 +1,11 @@
 package com.auto.remind.com.bwensun.commons.util;
 
-import com.google.common.io.CharStreams;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -23,16 +20,15 @@ public class ResourceUtils {
     private ResourceUtils() {
     }
 
-    public static String readAsString(String path){
+    public static String readAsString(String path) {
         final ClassPathResource classPathResource = new ClassPathResource(path);
         final InputStream inputStream;
         try {
             inputStream = classPathResource.getInputStream();
             return IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
         } catch (IOException e) {
-            log.info("【ResourceUtils-readresString】 读取文件异常");
+            log.error("【ResourceUtils-readresString】 读取文件异常", e);
         }
         return "";
     }
-
 }
