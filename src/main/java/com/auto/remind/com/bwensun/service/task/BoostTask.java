@@ -20,7 +20,7 @@ public class BoostTask {
     @Resource
     private BoostService boostService;
 
-    @Scheduled(cron = "0 30 8 * * ?")
+    @Scheduled(cron = "0/20 * * * * ?")
     public void doBoost() {
         boostService.boostService();
     }

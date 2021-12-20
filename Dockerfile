@@ -7,7 +7,7 @@ RUN echo "ip_resolve=4" >> /etc/yum.conf
 RUN yum update -y && yum install -y java-11-openjdk-devel
 
 # 设置时区。这对于日志、调用链等功能能否在 TSF 控制台被检索到非常重要。
-RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo "Asia/shanghai" > /etc/timezone
 
 ENV workdir /app/
 
